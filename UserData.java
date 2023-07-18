@@ -2,7 +2,7 @@ package com.example.test;
 
 public class UserData {
     DataClass data;
-    SupportClass support;
+
     public void setData(DataClass data) {
         this.data = data;
     }
@@ -11,16 +11,42 @@ public class UserData {
     }
 
 
-    public void setSupport(SupportClass support) {
-        this.support = support;
-    }
-
-    public SupportClass getSupport() {
-        return support;
-    }
     public class DataClass{
 
-    String mail, password, name, phone, bonus, id;
+    String mail;
+        String password;
+        String name;
+        String phone;
+        String bonus;
+        String id;
+        String birth;
+        String gender;
+
+        public String getBirth() {
+            return birth;
+        }
+
+        public void setBirth(String birth) {
+            this.birth = birth;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        String city;
 
     public String getMail() {
         return mail;
@@ -73,25 +99,5 @@ public class UserData {
 
 
     }
-    class SupportClass{
-        String url;
-        String text;
-        public String getUrl() {
-            return url;
-        }
 
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-
-    }
 }

@@ -1,5 +1,7 @@
 package com.example.test.ui.home;
 
+import static java.lang.Integer.parseInt;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.test.CountData;
 import com.example.test.MainActivity;
 import com.example.test.MenuActivity;
 import com.example.test.R;
@@ -49,6 +52,9 @@ TextView textView;
 
         @GET("/api/main/{uid}")
         Call<UserData> getUser(@Path("uid") String uid);
+
+        @GET("/api/main/count/{uid}")
+        Call<CountData> getCount(@Path("uid") String uid);
     }
     TextView name;
     TextView bonus;
@@ -68,18 +74,31 @@ TextView textView;
         menuActivity = (MenuActivity) getActivity();
         name = root.findViewById(R.id.textView3);
         bonus = root.findViewById(R.id.textView6);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.43.50:8888").addConverterFactory(GsonConverterFactory.create()).build();
-        MainActivity.RequestUser requestUser = retrofit.create(MainActivity.RequestUser.class);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.43.180:8888").addConverterFactory(GsonConverterFactory.create()).build();
+        HomeFragment.RequestUser requestUser = retrofit.create(HomeFragment.RequestUser.class);
         requestUser.getUser(menuActivity.id).enqueue(new Callback<UserData>() {
             @Override
             public void onResponse(Call<UserData> call, Response<UserData> response) {
 
                 name.setText(response.body().getData().getName().toString());
-                bonus.setText(response.body().getData().getBonus().toString());
+                //bonus.setText(response.body().getData().getBonus().toString());
             }
 
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
+            }
+        });
+
+        requestUser.getCount(menuActivity.id).enqueue(new Callback<CountData>() {
+            @Override
+            public void onResponse(Call<CountData> call, Response<CountData> response) {
+
+                //name.setText(response.body().getData().getName().toString());
+                bonus.setText(response.body().getData().getCount().toString());
+            }
+
+            @Override
+            public void onFailure(Call<CountData> call, Throwable t) {
             }
         });
 
